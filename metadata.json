@@ -1,0 +1,8 @@
+{
+  "name": "Grosir Berkah - Toko Grosir Online",
+  "description": "Toko online offline grosir serba ada dengan harga bertingkat untuk eceran, warung, dan agen reseller.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

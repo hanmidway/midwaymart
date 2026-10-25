@@ -1,0 +1,69 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Item produk yang dijual di toko grosir",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 150 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "category": { "type": "string", "maxLength": 50 },
+        "price": { "type": "number", "description": "Harga satuan eceran normal" },
+        "wholesalePrice": { "type": "number", "description": "Harga grosir utama" },
+        "minWholesaleQty": { "type": "number", "description": "Minimal kuantitas untuk harga grosir" },
+        "stock": { "type": "number", "description": "Stok barang tersedia" },
+        "unit": { "type": "string", "maxLength": 30, "description": "Satuan seperti pcs, dus, bal, renceng, kg, karton" },
+        "imageUrl": { "type": "string", "maxLength": 1000 },
+        "sku": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "wholesalePrice", "stock", "unit"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Pesanan pembelian grosir",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "customerPhone": { "type": "string", "maxLength": 25 },
+        "customerAddress": { "type": "string", "maxLength": 300 },
+        "notes": { "type": "string", "maxLength": 500 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "shipped", "completed", "cancelled"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerName", "customerPhone", "items", "totalAmount", "status"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Data hak akses admin pengelola toko",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 120 },
+        "role": { "type": "string", "enum": ["admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Koleksi produk grosir, dapat dibaca oleh publik/semua orang, dikelola hanya oleh admin"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Koleksi pesanan toko grosir dari pembeli"
+    },
+    "/admins/{adminUid}": {
+      "schema": "Admin",
+      "description": "Daftar akun admin yang berwenang mengedit produk dan inventaris"
+    }
+  }
+}
